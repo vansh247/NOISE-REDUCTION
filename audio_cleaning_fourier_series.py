@@ -4,7 +4,7 @@ from matplotlib.animation import FuncAnimation
 import sounddevice as sd
 import librosa  # Used for loading MP3, WAV, etc.
 #1.LOAD MP3 (OR WAV) AUDIO FILE
-audio_path = 'E:\\music\\chammak-challo_endMGL6Q.mp3'  
+audio_path = 'E:\\music\\chammak-challo_endMGL6Q.mp3'  #(Replace this path with the path to your audio file)
 try:
     # sr=None preserves the original sampling rate; mono=True converts stereo to mono
     audio_data, sampling_rate = librosa.load(audio_path, sr=None, mono=True)
@@ -24,8 +24,8 @@ fft_spectrum = np.fft.fft(noisy_signal)
 frequencies = np.fft.fftfreq(len(noisy_signal), 1 / sampling_rate)
 #3.APPLY SPECTRAL FILTERING
 filtered_spectrum = fft_spectrum.copy()
-cutoff_low = 200 # Hz (frequencies below this are muted)
-cutoff_high = 8000 # Hz (frequencies above this are muted)
+cutoff_low = 200 # Hz (frequencies below this are muted) (u can adjust this value to remove low frequency noise) 
+cutoff_high = 8000 # Hz (frequencies above this are muted)(u can adjust this value to remove high frequency noise) 
 filtered_spectrum[(np.abs(frequencies) < cutoff_low) | (np.abs(frequencies) > cutoff_high)] = 0
 #4.INVERSE FOURIER TRANSFORM
 cleaned_signal = np.real(np.fft.ifft(filtered_spectrum))
